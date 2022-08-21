@@ -2,7 +2,6 @@ package config
 
 import (
 	"errors"
-	"fmt"
 	"github.com/go-ini/ini"
 	"os"
 )
@@ -14,7 +13,7 @@ var (
 type Config struct {
 	Master      []string
 	Slave       []string
-	maxConnects string
+	maxConnects int
 }
 
 func DefaultConf() *Config {
@@ -28,8 +27,6 @@ func NewConfigByFileName(name string) (*Config, error) {
 	if name == "" {
 		return nil, errors.New("param is empty")
 	}
-	fmt.Println(confRoot)
-	fmt.Println("AAAAAA", confRoot+name+".ini")
 	f, err := ini.ShadowLoad(confRoot + name + ".ini")
 	if err != nil {
 		return nil, err
